@@ -1,0 +1,19 @@
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        for(int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+        while(fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+}
+// 找倒数第n个的方法可以是先找到正数第n个的位置，然后再使用双指针
+// 我初次提交的时候是让fast和slow指向head，但是这样的话当只有一个节点的时候会有空指针异常。
