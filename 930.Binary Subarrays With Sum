@@ -1,1 +1,18 @@
-
+class Solution {
+    public int numSubarraysWithSum(int[] A, int S) {
+        int[] P = new int[A.length + 1];
+        for(int i = 0; i < A.length; i++) {
+            P[i + 1] = P[i] + A[i]; 
+        }
+        int res = 0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int x : P){
+            res += map.getOrDefault(x, 0);
+            map.put(x + S, map.getOrDefault(x + S, 0) + 1);
+        }
+        return res;
+    }
+}
+// 数组P[i]为数组A[0]...A[i-1]的前缀和
+// 通过P[j+1] - P[i] = A[i]+A[i+1]+...+A[j]可以计算得到A[i..j]的和
+// 接着进行一次线性遍历，当遍历到P[j]时，我们要得到的是满足P[j]=P[i]+S并且满足i<j的i的数目，通过map可以实现这个目的。
