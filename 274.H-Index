@@ -1,0 +1,28 @@
+class Solution {
+    int[] arr;
+    int ans;
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        arr = citations;
+        binary(0, citations.length - 1); 
+        return ans;     
+    }
+    private void binary(int start, int end){
+        if(start > end) {
+            return;
+        }
+        int mid = (end - start) / 2 + start;
+        int h = arr.length - mid;
+        if(h <= arr[mid]) {
+            ans = h;
+            binary(start, mid - 1);
+        }else{
+            binary(mid + 1, end);
+        }
+    }
+
+}
+// 题目的意思有一些偏颇，首先要将至多去掉，题目的意思是问有h篇论文被引用了至少h次
+// 1. 通过二分法确定h的值
+// 2. h满足的条件：h<=当前文章的引用次数，并且h>=前一篇文章引用的次数。
+// 3. 当前h满足条件，则需要往左寻找是否有更大的h，不满足则右寻找满足的h
