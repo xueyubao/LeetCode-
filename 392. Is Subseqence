@@ -1,0 +1,16 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0;
+        for(char c : s.toCharArray()) {
+            while(i < t.length() && c != t.charAt(i)) {
+                i++;
+            }
+            i++;
+        }
+        return i <= t.length() ? true : false;
+
+    }
+}
+// 这是一道贪心算法题，策略是针对s字符串中的每一位字母，我去t中找与之对应的。
+// 当当前t中的字母没有对应时，找t中的下一位
+// 若当前t中的字母和s对应，则针对s中的下一个字母
