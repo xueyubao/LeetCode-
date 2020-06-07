@@ -1,0 +1,27 @@
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if(nums1.length > nums2.length) {
+            return intersect(nums2, nums1);
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int n : nums1) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        int k = 0;
+        int count = 0;
+        for(int n : nums2) {
+            count = map.getOrDefault(n, 0);
+            if(count > 0) {
+                nums1[k] = n;
+                k++;
+            }
+            map.put(n, count - 1);
+        }
+        return Arrays.copyOfRange(nums1,0,k);
+        
+    }
+}
+// 将数组元素教少的那个数组存入HashMap, 然后设置一个count看在数组2中对应的key出现了多少次
+// 在map中每出现一次，就将数组1（较小的那个数组）从index为0时设置出现的key，然后index++
+// 同时将更新map中key对应的value值，减小1
+// 时间复杂度O(n) 空间复杂度O(n)
