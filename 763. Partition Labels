@@ -1,0 +1,28 @@
+class Solution {
+    public List<Integer> partitionLabels(String S) {
+        List<Integer> list = new ArrayList<>();
+        int i = 0;
+        int j = S.length() - 1;
+        int flag = 0;
+        while(S.length() > 0) {
+            while(S.charAt(i) != S.charAt(j)) {
+                j--;
+            }
+            flag = Math.max(flag, j);
+            if(i < flag) {
+                i++;
+                j = S.length() - 1;
+                continue;
+            }
+            list.add(j + 1);
+            S = S.substring(j + 1);
+            i = 0;
+            j = S.length() - 1;
+            flag = 0;
+        }
+        return list;
+
+    }
+}
+// 这道题用双指针的话时间复杂度太高，会达到O(n^2)。但是双指针我觉得是比较容易想到的。
+// 时间复杂度O(n^2)。 空间复杂度O(n)
