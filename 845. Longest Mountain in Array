@@ -1,0 +1,25 @@
+class Solution {
+    public int longestMountain(int[] A) {
+        int max = 0;
+        int left = 0;
+        while(left < A.length) {
+            int right = left;
+            if(right + 1 < A.length && A[right] < A[right + 1]){
+                while(right + 1 < A.length && A[right] < A[right + 1]) {
+                    right++;
+                }
+            
+                if(right + 1 < A.length && A[right] > A[right + 1]) {
+                    while(right + 1 < A.length && A[right] > A[right + 1]) {
+                        right++;
+                    }
+                    max = Math.max(max, right - left + 1);
+                }
+            }
+            left = Math.max(right, left + 1);
+        }
+        return max;
+    }
+}
+// 双指针，左指针用来遍历数组，右指针用来看合适的index
+// 时间复杂度 O(N) 空间复杂度O(1)
