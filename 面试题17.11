@@ -1,0 +1,26 @@
+class Solution {
+    public int findClosest(String[] words, String word1, String word2) {
+        int min = -1;
+        int lastWord1Index = -1;
+        int lastWord2Index = -1;
+        for(int i = 0; i < words.length; i++) {
+            if(words[i].equals(word1)) {
+                lastWord1Index = i;
+            }
+            if(words[i].equals(word2)) {
+                lastWord2Index = i;
+            }
+            if(lastWord1Index == -1 || lastWord2Index == -1) {
+                continue;
+            }
+            int temp = lastWord2Index > lastWord1Index ? lastWord2Index - lastWord1Index : lastWord1Index - lastWord2Index;
+            if(temp < min || min == -1) {
+                min = temp;
+            }
+        }
+        return min;
+
+    }
+}
+// 用双指针找到两个word的下标，每次都更新一下min的值
+// 时间复杂度O(n)  空间复杂度O(1)
