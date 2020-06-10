@@ -1,0 +1,25 @@
+class Solution {
+    public int smallestDifference(int[] a, int[] b) {
+        Arrays.sort(a);
+        Arrays.sort(b);
+        long res = Integer.MAX_VALUE;
+        int i = 0;
+        int j = 0;
+        while(i < a.length && j < b.length) {
+            if(a[i] < b[j]) {
+                res = Math.min(res, (long)b[j] - (long)a[i]);
+                i++;
+            }else if(a[i] > b[j]) {
+                res = Math.min(res, (long)a[i] - (long)b[j]);
+                j++;
+            }else{
+                return 0;
+            }
+        }
+        return (int)res;
+
+    }
+}
+// 用排列➕双指针，首先对a和b数组进行排列
+// 然后i指向a，j指向b遍历判断更新res。
+// 时间复杂度O(NlogN）空间复杂度O(1)
