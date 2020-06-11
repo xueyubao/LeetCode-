@@ -1,0 +1,29 @@
+class Solution {
+    public void sortColors(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int curr = 0;
+        while(curr <= right) {
+            if(nums[curr] == 0) {
+                swap(nums, curr, left);
+                left++;
+                curr++;
+            }else if(nums[curr] == 2) {
+                swap(nums, curr, right);
+                right--;
+            }else{
+                curr++;
+            }
+        }
+
+    }
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+// 通常做双指针类型的题目的时候我们要明白双指针两侧的意义。
+// 这道题可以看成两个隔板三个区域。left的左侧是0；right的右侧是2 。同时注意left和right所对应的值，什么时候需要left++和right--都要
+// 视具体题目而定
+// 时间复杂度O(n) 空间复杂度O(1)
