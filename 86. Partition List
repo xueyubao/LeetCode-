@@ -1,0 +1,33 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        if(head == null) return head;
+        ListNode fakesmallhead = new ListNode(0);
+        ListNode fakelargehead = new ListNode(0);
+        ListNode smalltail = fakesmallhead;
+        ListNode largetail = fakelargehead;
+        ListNode curr = head;
+        while(curr != null){
+            if(curr.val < x){
+                smalltail.next = curr;
+                smalltail = curr;
+            }else{
+                largetail.next = curr;
+                largetail = curr;
+            }
+            curr = curr.next;
+        }
+        smalltail.next = fakelargehead.next;
+        largetail.next = null;
+        return fakesmallhead.next;
+    }
+}
+// 双指针遍历原来的链表。
+时间复杂度O(n) 空间复杂度O(n)
