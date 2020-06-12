@@ -1,0 +1,23 @@
+class Solution {
+    private int getNext(int n) {
+        int totalSum = 0;
+        while(n > 0) {
+            int d = n % 10;
+            n = n / 10;
+            totalSum += d * d;
+        }
+        return totalSum;
+    }
+
+    public boolean isHappy(int n) {
+        Set<Integer> seen = new HashSet<>();
+        while(n != 1 && !seen.contains(n)) {
+            seen.add(n);
+            n = getNext(n);
+        }
+        return n == 1;
+    }
+}
+// 用哈希表存储每次变化后的数字。如果哈希表中不存在并且数字不是1就存入。
+// 判断循环结束时的数字是否是1
+// 时间复杂度  空间复杂度
