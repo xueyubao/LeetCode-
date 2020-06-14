@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> map = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        for(String str : cpdomains) {
+            String[] s = str.split(" ");
+            int frequency = Integer.parseInt(s[0]);
+            String address = s[1];
+            map.put(address, map.getOrDefault(address,0) + frequency);
+            for(int i = 0; i < address.length(); i++) {
+                if(address.charAt(i) == '.') {
+                    map.put(address.substring(i + 1), map.getOrDefault(address.substring(i + 1),0) + frequency);
+                }
+            }
+        }
+        for(String str : map.keySet()) {
+            list.add(map.get(str) + " " + str);
+        }
+        return list;
+
+
+    }
+}
