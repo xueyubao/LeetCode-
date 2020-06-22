@@ -1,0 +1,23 @@
+class Solution {
+    public int compress(char[] chars) {
+        if(chars == null || chars.length == 0) {
+            return 0;
+        }
+        int anchor = 0;
+        int write = 0;
+        for(int read = 0; read < chars.length; read++) {
+            if(read + 1 == chars.length || chars[read] != chars[read + 1]) {
+                chars[write] = chars[anchor];
+                write++;
+                if(read > anchor) {
+                    for(char c : ("" + (read - anchor + 1)).toCharArray()) {
+                        chars[write] = c;
+                        write++;
+                    }
+                }
+                anchor = read + 1;
+            }          
+        }
+        return write;
+    }
+}
