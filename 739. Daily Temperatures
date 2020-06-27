@@ -1,0 +1,17 @@
+class Solution {
+    public int[] dailyTemperatures(int[] T) {
+        int[] res = new int[T.length];
+        Deque<Integer> stack = new LinkedList<>();
+        for(int i = 0; i < T.length; i++) {
+            int temp = T[i];
+            while(!stack.isEmpty() && temp > T[stack.peek()]) {
+                int preIndex = stack.peek();
+                res[preIndex] = i - stack.pop();
+            }
+            stack.push(i);
+        }
+        return res;
+    }
+}
+// 时间复杂度O(n) 空间复杂度O(n)
+// 单调栈的解法，如果一直是增加 就一直往栈中存入，将要存入的元素和栈顶元素比较。
