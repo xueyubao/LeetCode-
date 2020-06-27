@@ -24,3 +24,33 @@ class Solution {
         return sum;
     }
 }
+// 时间复杂度O(n) 空间复杂度 O(n)
+// 用单调栈来解
+
+class Solution {
+    public int trap(int[] height) {
+        if(height == null || height.length == 0) {
+            return 0;
+        }
+        int max = 0;
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = 0;
+        int rightMax = 0;
+        while(left < right) {
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
+            if(leftMax < rightMax) {
+                max = leftMax - height[left] + max;
+                left++;
+            }else{
+                max = rightMax - height[right] + max;
+                right--;
+            }
+        }
+        return max;
+    }
+}
+// 双指针解法
+// 时间复杂度O(n) 空间复杂度O(1)
+
