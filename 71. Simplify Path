@@ -1,0 +1,30 @@
+class Solution {
+    public String simplifyPath(String path) {
+        if(path.length() <= 1) {
+            return path;
+        }
+        String[] each = path.split("/");
+        Stack<String> stack = new Stack<>();
+        for(String curr : each) {
+            if(curr.equals("..")) {
+                if(!stack.isEmpty()) {
+                    stack.pop();
+                }
+            }else if(!curr.equals(".") && !curr.isEmpty()) {
+                stack.push(curr);
+            }
+        }
+        String result = "";
+        if(stack.isEmpty()) {
+            return "/";
+        }
+        
+        while(!stack.isEmpty()) {
+            String newPop = stack.pop();
+            result = "/" + newPop + result;
+        }
+        return result;
+        
+    }
+}
+// 事件复杂度O(n) 空间复杂度O(n)
