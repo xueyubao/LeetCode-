@@ -1,0 +1,24 @@
+class Solution {
+    public int longestOnes(int[] A, int K) {
+        int max = 0;
+        int left = 0;
+        for(int right = 0; right < A.length; right++) {
+            if(A[right] == 0) {
+                if(K == 0) {
+                    // 当k变成0的时候，要检测窗口左边的数字是否是1，是的话就要一直右滑缩小窗口
+                    while(A[left] == 1) {
+                        left++;
+                    }
+                    // 当左侧的窗口是0的时候。
+                    left++;
+                }else{
+                    K--;
+                }
+            }
+            max = right - left + 1 > max ? right - left + 1: max;
+        }
+        return max;
+
+    }
+}
+// 滑动窗口
