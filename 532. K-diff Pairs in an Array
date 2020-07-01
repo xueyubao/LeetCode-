@@ -1,0 +1,50 @@
+class Solution {
+    public int findPairs(int[] nums, int k) {
+        int count = 0;
+        if(k < 0) {
+            return count;
+        }
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+        for(int i : map.keySet()) {
+            if(k == 0){
+                if(map.get(i) > 1) {
+                    count++;
+                }
+            }else{
+                if(map.containsKey(i + k)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+
+    }
+}
+//  使用hashmap 这个方法有点类似与two sum
+//  时间复杂度O(n)  空间复杂度O(n)
+
+class Solution {
+    public int findPairs(int[] nums, int k) {
+        int count = 0;
+        Arrays.sort(nums);
+        for(int i = 0; i < nums.length - 1; i++) {
+            if(i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for(int j = i + 1; j < nums.length; j++) {
+                if(nums[j] - nums[i] == k) {
+                     count++;
+                     break;
+                }
+            }
+        }
+        return count;
+
+    }
+}
+// 最复杂的情况似乎要O(n^2) 空间复杂度O(1)
+
+
