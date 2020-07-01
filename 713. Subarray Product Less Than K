@@ -1,0 +1,21 @@
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        if(k <= 1) {
+            return 0;
+        }
+        int now = 1; 
+        int times = 0;
+        int left = 0;
+        for(int right = 0; right < nums.length; right++) {
+            now *= nums[right];
+            while(now >= k) {
+                now /= nums[left];
+                left++;
+            }
+            times += right - left + 1;
+        }
+        return times;
+
+    }
+}
+// 滑动窗口
