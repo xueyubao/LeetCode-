@@ -1,0 +1,36 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int len1 = s1.length();
+        int len2 = s2.length();
+        if(len1 == 0) {
+            return true;
+        }
+        if(len2 < len1){
+            return false;
+        }
+        int[] map1 = new int[128];
+        int[] map2 = new int[128];
+        for(int i = 0; i < len1; i++) {
+            map1[s1.charAt(i)]++;
+            map2[s2.charAt(i)]++;
+        }
+        for(int i = 0; i < len2 - len1; i++){
+            if(match(map1, map2)) {
+                return true;
+            }
+            // 这一步的话就是将map2中最左端的元素更新成新遍历到的，主要就是维持了一个滑动窗口
+            map2[s2.charAt(i)]--;
+            map2[s2.charAt(len1 + i)]++;
+        }
+        return match(map1, map2);
+    }
+    private boolean match(int[] a, int[] b) {
+        for(int i = 0; i < 128; i++) {
+            if(a[i] != b[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+// 滑动窗口
