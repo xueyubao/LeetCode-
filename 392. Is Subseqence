@@ -14,3 +14,21 @@ class Solution {
 // 这是一道贪心算法题，策略是针对s字符串中的每一位字母，我去t中找与之对应的。
 // 当当前t中的字母没有对应时，找t中的下一位
 // 若当前t中的字母和s对应，则针对s中的下一个字母
+
+//更优解
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int sLen = s.length();
+        int index = 0;
+        int loc = 0;
+        for(int i = 0; i < sLen; i++) {
+            loc = t.indexOf(s.charAt(i), index);
+            if(loc < 0) {
+                return false;
+            }
+            index = loc + 1;
+        }
+        return true;
+
+    }
+}
